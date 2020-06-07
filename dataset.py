@@ -18,6 +18,8 @@ class Config:
 		self.entropy_threshold = 0.5
 		self.kl_threshold = 0.4
 		self.ve_threshold = 0.6
+		self.cluster_prop = 0.6
+		self.num_clusters = 10
 
 class Dataset:
 	def __init__(self, config):
