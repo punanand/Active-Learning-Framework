@@ -16,6 +16,8 @@ class Config:
 		self.ms_threshold = 0.2
 		# Threshold for entropy uncertainty measure
 		self.entropy_threshold = 0.5
+		self.kl_threshold = 0.4
+		self.ve_threshold = 0.6
 
 class Dataset:
 	def __init__(self, config):

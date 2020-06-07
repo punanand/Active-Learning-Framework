@@ -58,8 +58,6 @@ def stream_uncertainty_sampling(measure, model, query_data, config):
 
 	return None
 
-
-
 def query_by_committee(data, orac, disagreement, committee):
 	max_query_size = floor(0.1 * len(data.x_raw))
 	numpy_X = np.array(orac.pool_X)
@@ -106,3 +104,56 @@ def query_by_committee(data, orac, disagreement, committee):
 			lst.append(-1*sm)
 
 		return np.argsort(np.array(lst))[:max_query_size]
+
+def stream_query_by_committee(disagreement, committee, query_data, config):
+	zr = np.zeros(query_data.shape[0])
+	tmp = []
+	tmp.append(query_data)
+	tmp.append(zr)
+	query_data = np.array(tmp)
+
+	predictions = np.array([model.predict_proba(query_data) for model in committee])
+
+	if disagreement == "kl":
+		lst = []
+		
+		sum_over_models = 0
+		for i in range(predictions.shape[0]):
+			sum_over_classes = 0
+			for j in range(predictions.shape[2]):
+				sum_denominator = 0
+				for k in range(predictions.shape[0]):
+					sum_denominator = sum_denominator + predictions[k, 0, j]
+				sum_denominator = sum_denominator / len(committee)
+
+				tmp = predictions[i, 0, j]
+				tmp = tmp / sum_denominator
+				if(tmp != 0):
+					tmp = log(tmp, 2)
+					tmp = tmp * predictions[i, 0, j]
+				sum_over_classes = sum_over_classes + tmp
+
+			sum_over_models = sum_over_models + sum_over_classes
+		sum_over_models = sum_over_models / len(committee)
+		lst.append(sum_over_models)
+		print(lst[0])
+		return lst[0] > config.kl_threshold
+
+	else:
+		lst = []
+		prediction = np.array([model.predict(query_data) for model in committee])
+		cnt = np.zeros(predictions.shape[2])
+		for i in range(len(committee)):
+			cnt[prediction[i, 0]] = cnt[prediction[i, 0]] + 1
+		sm = 0
+		for i in range(predictions.shape[2]):
+			tmp = cnt[i] / len(committee)
+			if(tmp != 0):
+				tmp = tmp * log(tmp, 2)
+			sm = sm + tmp
+		lst.append(-1*sm)
+		print(lst[0])
+		return lst[0] > config.ve_threshold
+
+
+
