@@ -1,6 +1,6 @@
-from dataset import Config, Dataset
 from math import floor
 import random
+import numpy as np
 
 class Oracle:
 	def __init__(self, data, config):
@@ -17,9 +17,12 @@ class Oracle:
 				self.pool_X.append(self.X[i])
 				self.pool_Y.append(self.Y[i])
 
-	def query(self, indices):
+	def query(self, indices_arr):
+		indices = indices_arr.tolist()
 		# returning the labels for the asked indices and add them to labeled data.
-		self.labeled_X.append(self.pool_X[idx] for idx in indices)
-		self.labeled_Y.append(self.pool_Y[idx] for idx in indices)
-		pool_X = [i for j, i in enumerate(self.pool_X) if j not in indices]
-		pool_X = [i for j, i in enumerate(self.pool_y) if j not in indices]
+		for idx in indices:
+			self.labeled_X.append(self.pool_X[idx])
+			self.labeled_Y.append(self.pool_Y[idx])
+		self.pool_X = [i for j, i in enumerate(self.pool_X) if j not in indices]
+		self.pool_Y = [i for j, i in enumerate(self.pool_Y) if j not in indices]
+		

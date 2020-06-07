@@ -4,8 +4,18 @@ import random
 
 class Config:
 	def __init__(self, train_proportion, label_proportion):
+		# proportion of trained data
 		self.train_proportion = train_proportion
+		# initial proportion of labeled data
 		self.label_proportion = label_proportion
+		# Maximum number of records in each query
+		self.max_query_size = 5
+		# Threshold for least count uncertainty measure
+		self.lc_threshold = 0.6
+		# Threshold for marginal sampling uncertainty measure
+		self.ms_threshold = 0.2
+		# Threshold for entropy uncertainty measure
+		self.entropy_threshold = 0.5
 
 class Dataset:
 	def __init__(self, config):
@@ -22,3 +32,6 @@ class Dataset:
 			if i not in self.train_indices:
 				test_lst.append(i)
 		self.test_indices = test_lst
+
+		self.test_X = [self.x_raw[i] for i in self.test_indices]
+		self.test_Y = [self.y_raw[i] for i in self.test_indices]
