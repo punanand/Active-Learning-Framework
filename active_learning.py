@@ -1,5 +1,6 @@
 import numpy as np
 from sampling import uncertainty_sampling, query_by_committee, stream_uncertainty_sampling, stream_query_by_committee
+import random
 
 class Learner:
 	def __init__(self, committee, strategy, uncertainty = None, disagreement = None):
@@ -65,7 +66,9 @@ class Learner:
 
 	def query(self, data, orac, stream = -1, config = None):
 		if(self.strategy == "uncertainty"):
-			if(stream != -1 and stream_uncertainty_sampling(self.uncertainty, self.committee[0], orac.pool_X[stream], config).any()):
+			if(stream == -2):
+				indices = np.array(random.sample(list(range(len(orac.pool_X))), 1))
+			elif(stream != -1 and stream_uncertainty_sampling(self.uncertainty, self.committee[0], orac.pool_X[stream], config).any()):
 				indices = stream
 			elif(stream != -1):
 				return 0
@@ -74,7 +77,9 @@ class Learner:
 			orac.query(indices)
 			return 1
 		else:
-			if(stream != -1 and stream_query_by_committee(self.disagreement, self.committee, orac.pool_X[stream], config)):
+			if(stream == -2):
+				indices = np.array(random.sample(list(range(len(orac.pool_X))), 1))
+			elif(stream != -1 and stream_query_by_committee(self.disagreement, self.committee, orac.pool_X[stream], config)):
 				indices = stream
 			elif(stream != -1):
 				return 0

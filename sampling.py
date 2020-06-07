@@ -1,5 +1,6 @@
 import numpy as np
 from math import floor, log
+import random
 
 def uncertainty_sampling(data, orac, measure, model):
 	max_query_size = floor(0.1 * len(data.x_raw))
@@ -14,6 +15,9 @@ def uncertainty_sampling(data, orac, measure, model):
 
 	elif measure == "ms":
 		return np.argsort(predictions[:, 0] - predictions[:, 1])[:max_query_size]
+
+	elif measure == "random":
+		return np.array(random.sample(list(range(len(orac.pool_X))), max_query_size))
 
 	else:
 		lst = []
@@ -136,7 +140,6 @@ def stream_query_by_committee(disagreement, committee, query_data, config):
 			sum_over_models = sum_over_models + sum_over_classes
 		sum_over_models = sum_over_models / len(committee)
 		lst.append(sum_over_models)
-		print(lst[0])
 		return lst[0] > config.kl_threshold
 
 	else:
@@ -152,7 +155,6 @@ def stream_query_by_committee(disagreement, committee, query_data, config):
 				tmp = tmp * log(tmp, 2)
 			sm = sm + tmp
 		lst.append(-1*sm)
-		print(lst[0])
 		return lst[0] > config.ve_threshold
 
 
