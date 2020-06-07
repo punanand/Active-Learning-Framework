@@ -18,7 +18,10 @@ class Oracle:
 				self.pool_Y.append(self.Y[i])
 
 	def query(self, indices_arr):
-		indices = indices_arr.tolist()
+		if(isinstance(indices_arr, int)):
+			indices = [indices_arr]
+		else:
+			indices = indices_arr.tolist()
 		# returning the labels for the asked indices and add them to labeled data.
 		for idx in indices:
 			self.labeled_X.append(self.pool_X[idx])

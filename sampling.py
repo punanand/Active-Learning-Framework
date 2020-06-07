@@ -7,7 +7,7 @@ def uncertainty_sampling(data, orac, measure, model):
 	numpy_X = np.array(orac.pool_X)
 
 	predictions = model.predict_proba(numpy_X)
-	np.sort(predictions, axis = 1)
+	predictions = -np.sort(-predictions, axis = 1)
 
 	if measure == "lc":
 		return np.argsort(predictions[:, 0])[:max_query_size]
@@ -28,6 +28,37 @@ def uncertainty_sampling(data, orac, measure, model):
 		return np.argsort(np.array(lst))[:max_query_size]
 
 	return None
+
+def stream_uncertainty_sampling(measure, model, query_data, config):
+	zr = np.zeros(query_data.shape[0])
+	tmp = []
+	tmp.append(query_data)
+	tmp.append(zr)
+	query_data = np.array(tmp)
+
+	prediction = model.predict_proba(query_data)
+	prediction = -np.sort(-prediction, axis = 1)
+
+	if measure == "lc":
+		return prediction[0, 0] < config.lc_threshold
+
+	elif measure == "ms":
+		return prediction[0, 0] - prediction[0, 1] < config.ms_threshold
+
+	else:
+		lst = []
+		sm = 0.0
+		pred = prediction[0]
+		for j in range(pred.shape[0]):
+			tmp = pred[j]
+			tmp = tmp * log(pred[j], 2)
+			sm = sm + tmp 
+		lst.append(-1*sm / log(pred.shape[0], 2))
+		return lst[0] > config.entropy_threshold
+
+	return None
+
+
 
 def query_by_committee(data, orac, disagreement, committee):
 	max_query_size = floor(0.1 * len(data.x_raw))

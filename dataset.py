@@ -11,7 +11,7 @@ class Config:
 		# Maximum number of records in each query
 		self.max_query_size = 5
 		# Threshold for least count uncertainty measure
-		self.lc_threshold = 0.6
+		self.lc_threshold = 0.5
 		# Threshold for marginal sampling uncertainty measure
 		self.ms_threshold = 0.2
 		# Threshold for entropy uncertainty measure
