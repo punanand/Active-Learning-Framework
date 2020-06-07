@@ -1,5 +1,5 @@
 import numpy as np
-from sampling import uncertainty_sampling
+from sampling import uncertainty_sampling, query_by_committee
 
 class Learner:
 	def __init__(self, committee, strategy, uncertainty = None, disagreement = None):
@@ -54,7 +54,7 @@ class Learner:
 
 		if(self.strategy == "qbc"):
 			# if the strategy is query based committee, take the majority of predictions for each of the models.
-			pred = predict(self, data.test_X)
+			pred = self.predict(data.test_X)
 			correct_pred = 0
 			for i in range(pred.shape[0]):
 				if(pred[i] == data.test_Y[i]):
@@ -66,4 +66,7 @@ class Learner:
 	def query(self, data, orac):
 		if(self.strategy == "uncertainty"):
 			indices = uncertainty_sampling(data, orac, self.uncertainty, self.committee[0])
+			orac.query(indices)
+		else:
+			indices = query_by_committee(data, orac, self.disagreement, self.committee)
 			orac.query(indices)
