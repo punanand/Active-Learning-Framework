@@ -3,7 +3,7 @@ from math import floor, log
 import random
 
 def uncertainty_sampling(data, orac, measure, model):
-	max_query_size = floor(0.1 * len(data.x_raw))
+	max_query_size = floor(0.1 * len(data.train_indices))
 	
 	numpy_X = np.array(orac.pool_X)
 
@@ -63,7 +63,7 @@ def stream_uncertainty_sampling(measure, model, query_data, config):
 	return None
 
 def query_by_committee(data, orac, disagreement, committee):
-	max_query_size = floor(0.1 * len(data.x_raw))
+	max_query_size = floor(0.1 * len(data.train_indices))
 	numpy_X = np.array(orac.pool_X)
 	predictions = np.array([model.predict_proba(numpy_X) for model in committee])
 

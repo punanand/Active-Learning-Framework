@@ -16,9 +16,13 @@ class Config:
 		self.ms_threshold = 0.2
 		# Threshold for entropy uncertainty measure
 		self.entropy_threshold = 0.5
+		# threshold for kl divergence stream based sampling
 		self.kl_threshold = 0.4
+		# threshold for vote entropy stream based sampling
 		self.ve_threshold = 0.6
+		# proportion of data to take for cluster based sampling
 		self.cluster_prop = 0.6
+		# number of clusters to make during cluster based sampling
 		self.num_clusters = 10
 
 class Dataset:
