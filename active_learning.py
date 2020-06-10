@@ -84,6 +84,6 @@ class Learner:
 			elif(stream != -1):
 				return 0
 			elif(stream == -1):
-				indices = query_by_committee(data, orac, self.disagreement, self.committee)
+				indices = query_by_committee(data, orac, self.disagreement, self.committee, config)
 			orac.query(indices)
 			return 1

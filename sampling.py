@@ -62,11 +62,11 @@ def stream_uncertainty_sampling(measure, model, query_data, config):
 
 	return None
 
-def query_by_committee(data, orac, disagreement, committee):
+def query_by_committee(data, orac, disagreement, committee, config):
 	max_query_size = floor(0.1 * len(data.train_indices))
 	numpy_X = np.array(orac.pool_X)
 	predictions = np.array([model.predict_proba(numpy_X) for model in committee])
-
+	version_space_size = 0
 	if disagreement == "kl":
 		lst = []
 		for instance in range(predictions.shape[1]):
@@ -89,7 +89,10 @@ def query_by_committee(data, orac, disagreement, committee):
 				sum_over_models = sum_over_models + sum_over_classes
 			sum_over_models = sum_over_models / len(committee)
 			lst.append(-1*sum_over_models)
-
+			if(sum_over_models > config.kl_threshold):
+				version_space_size += 1
+			
+		print("Current version space size is: ", str(version_space_size))
 		return np.argsort(np.array(lst))[:max_query_size]
 
 	else:
