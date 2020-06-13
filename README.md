@@ -14,22 +14,22 @@ Active Learning cleverly chooses the data points it wants to label and train its
 This repository contains notebooks that demonstrate the following Active Learning Strategies:
 
 1. Pool Based Active Learning
-    1. Uncertainty Sampling
+    1. Uncertainty Sampling ([PoolBased_UncertaintySampling .ipynb](https://github.com/punanand/Active-Learning/blob/master/PoolBased_UncertaintySampling%20.ipynb))
         1. Least Confident Measure
         2. Entropy Measure
         3. Most Confused Measure
-    2. Query-by-Committee Sampling
+    2. Query-by-Committee Sampling ([PoolBased_QBC.ipynb](https://github.com/punanand/Active-Learning/blob/master/PoolBased_QBC.ipynb))
         1. Vote Entropy Based Sampling
         2. KL Divergence Based Sampling
-2. Stream Based Active Learning
-    1. Uncertainty Sampling
+2. Stream Based Active Learning 
+    1. Uncertainty Sampling ([StreamBased_UncertaintySampling.ipynb](https://github.com/punanand/Active-Learning/blob/master/StreamBased_UncertaintySampling.ipynb))
         1. Least Confident Measure
         2. Entropy Measure
         3. Most Confused Measure
-    2. Query-by-Committee Sampling
+    2. Query-by-Committee Sampling  ([StreamBased_QBC.ipynb](https://github.com/punanand/Active-Learning/blob/master/StreamBased_QBC.ipynb))
         1. Vote Entropy Based Sampling
         2. KL Divergence Based Sampling
-3. Cluster based sampling        
+3. Cluster based sampling ([Cluster-based-sampling.ipynb](https://github.com/punanand/Active-Learning/blob/master/Cluster-based-sampling.ipynb))       
 
 ## How to use the framework
 The framework has been tested in Python 3.7
