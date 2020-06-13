@@ -32,8 +32,10 @@ This repository contains notebooks that demonstrate the following Active Learnin
 3. Cluster based sampling ([Cluster-based-sampling.ipynb](https://github.com/punanand/Active-Learning/blob/master/Cluster-based-sampling.ipynb))       
 
 Click [here](https://punanand.github.io/Active-Learning/ "Active Learning Framework") for a more detailed analysis and implementation specific details about the framework.
+
 ## How to use the framework
-The framework has been tested in Python 3.7
+The framework has been tested in Python 3.7. The current implementation uses [`digit`](https://scikit-learn.org/stable/auto_examples/datasets/plot_digits_last_image.html "The Digit Dataset") dataset from scikit-learn. One can use the above links to python notebooks to view the code and play around with the desired scenario and sampling procedure. 
+
 ### Requirements
 
 * [NumPy](https://numpy.org/ "NumPy")
