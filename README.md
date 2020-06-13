@@ -1,4 +1,4 @@
-# ACTIVE LEARNING FRAMEWORK
+# Active Learning Framework
 
 ### About Active Learning
 
