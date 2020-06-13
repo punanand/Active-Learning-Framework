@@ -31,6 +31,7 @@ This repository contains notebooks that demonstrate the following Active Learnin
         2. KL Divergence Based Sampling
 3. Cluster based sampling ([Cluster-based-sampling.ipynb](https://github.com/punanand/Active-Learning/blob/master/Cluster-based-sampling.ipynb))       
 
+Click [here](https://punanand.github.io/Active-Learning/ "Active Learning Framework") for a more detailed analysis and implementation specific details about the framework.
 ## How to use the framework
 The framework has been tested in Python 3.7
 ### Requirements
@@ -38,3 +39,7 @@ The framework has been tested in Python 3.7
 * [NumPy](https://numpy.org/ "NumPy")
 * [Pandas](https://pandas.pydata.org/ "pandas"). 
 * [scikit-learn](https://scikit-learn.org/stable/ "scikit-learn")
+
+To install the above requirements, execute the following in a terminal:
+
+`$ pip install numpy pandas scikit-learn matplotlib`
