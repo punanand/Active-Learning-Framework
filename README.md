@@ -1,6 +1,6 @@
-# ACTIVE-LEARNING-FRAMEWORK
+# ACTIVE LEARNING FRAMEWORK
 
-#### Introduction
+### Introduction
 
 Active learning is a special branch of machine learning that falls under semi-supervised learning, wherein the machine continuously interacts with an information source (oracle). 
 
@@ -8,6 +8,8 @@ Most supervised machine learning models require large amounts of data to be trai
 
 Active Learning cleverly chooses the data points it wants to label and train its model on those points, leading to highest impact to training a supervised model. 
 
-#### Implementation details
+### Implementation details
 
 Implemented an Active Learning framework from scratch using basic Python libraries like NumPy and Pandas. The model is completely generalized and can be used for a variety of datasets.
+
+
